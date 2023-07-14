@@ -26,5 +26,10 @@ TopicNameChanger::TopicNameChanger(const rclcpp::NodeOption& node_options):Node(
   imu_sub_ = this->create_subscription<>(params_.imu_topic_name, qos, std::bind(&TopicNameChanger::imu_callback, this, std::placeholders::_1));
   gnss_sub_ = this->create_subscription<>(params_.gnss_topic_name, qos, std::bind(&TopicNameChanger::gnss_callback, this, std::placeholders::_1));
 
+  gnss_pub_ = this->create_publisher<sensor_msgs::msg::NavSatFix>( params_.pub_gnss_topic_name, 10);
 }
 
+  void gnss_callback(const sensor_msgs::msg::NavSatFix::SharedPtr msg)
+  {
+    gnss_sub_->publish(*msg);
+  }

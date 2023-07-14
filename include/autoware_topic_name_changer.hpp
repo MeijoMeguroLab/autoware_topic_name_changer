@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include <rclcpp/rclcpp.hpp>
-#include <sensor_msgs/msg/point_cloud2.hpp>
 
 class TopicNameChanger : public rclcpp::Node {
   struct Params {
@@ -26,4 +25,6 @@ private:
   rclcpp::Subscription<>::SharedPtr imu_sub_;
   rclcpp::Subscription<>::SharedPtr gnss_sub_;
 
+  rclcpp::Publisher<sensor_msgs::msg::NavSatFix>::SharedPtr gnss_pub_;
 };
+
