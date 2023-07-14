@@ -2,6 +2,9 @@
 
 #include <iostream>
 #include <rclcpp/rclcpp.hpp>
+#include "velodyne_msgs/msg/VelodyneScan.hpp"
+#include "sensor_msgs/msg/Imu.hpp"
+#include "sensor_msgs/msg/NavSatFix.hpp"
 
 class TopicNameChanger : public rclcpp::Node {
   struct Params {
@@ -15,16 +18,18 @@ public:
 
 private:
   // callback
-  void velodyne_callback(const  msg);
+  void velodyne_callback(const velodyne_msgs::msg::VelodyneScan::SharedPtr msg);
 
-  void imu_callback(const  msg);
+  void imu_callback(const sensor_msgs::msg::Imu::SharedPtr msg);
 
-  void gnss_callback(const  msg);
+  void gnss_callback(const sensor_msgs::msg::NavSatFix::SharedPtr msg);
 
-  rclcpp::Subscription<>::SharedPtr velodyne_points_sub_;
-  rclcpp::Subscription<>::SharedPtr imu_sub_;
-  rclcpp::Subscription<>::SharedPtr gnss_sub_;
+  rclcpp::Subscription<velodyne_msgs::msg::VelodyneScan>::SharedPtr velodyne_points_sub_;
+  rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr imu_sub_;
+  rclcpp::Subscription<sensor_msgs::msg::NavSatFix>::SharedPtr gnss_sub_;
 
+  rclcpp::Publisher<velodyne_msgs::msg::VelodyneScan>::SharedPtr velodyne_points_pub_;
+  rclcpp::Publisher<sensor_msgs::msg::Imu>::SharedPtr imu_pub_;
   rclcpp::Publisher<sensor_msgs::msg::NavSatFix>::SharedPtr gnss_pub_;
 };
 
