@@ -1,5 +1,5 @@
 <package>
- <name>type_changer</name>
+ <name>autoware_topic_name_changer</name>
  <version>0.0.0</version>
  <description>T0D0: Package description</description>
  <maintainer email="200447028@ccmailg.meijo-u.ac.jp">shiryukuroda</maintainer>
