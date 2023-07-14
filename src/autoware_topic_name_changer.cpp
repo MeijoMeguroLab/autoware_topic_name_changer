@@ -34,6 +34,8 @@ TopicNameChanger::TopicNameChanger(const rclcpp::NodeOptions& node_options) : No
   gnss_pub_ = this->create_publisher<sensor_msgs::msg::NavSatFix>( params_.pub_gnss_topic_name, 10);
 }
 
+TopicNameChanger::~TopicNameChanger() {}
+
 void TopicNameChanger::velodyne_points_callback(const velodyne_msgs::msg::VelodynePacket::SharedPtr msg) {
   velodyne_points_pub_->publish(*msg);
 }
