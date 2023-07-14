@@ -4,7 +4,7 @@ project(autoware_topic_name_changer)
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
-find_package(velodyne_msgs REQUIERD)
+find_package(velodyne_msgs REQUIRED)
 
 add_executable(autoware_topic_name_changer 
   src/autoware_topic_name_changer.cpp

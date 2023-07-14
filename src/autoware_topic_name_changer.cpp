@@ -1,5 +1,4 @@
-#include <type_changer.hpp>
-
+#include <autoware_topic_name_changer.hpp>
 
 TopicNameChanger::TopicNameChanger(const rclcpp::NodeOption& node_options):Node("autoware_topic_name_changer",node_options){
   params_.lidar_topic_name = this->declare_parameter<std::string>("lidar_topic_name");

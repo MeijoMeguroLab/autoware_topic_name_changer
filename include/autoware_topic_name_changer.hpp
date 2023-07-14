@@ -2,9 +2,9 @@
 
 #include <iostream>
 #include <rclcpp/rclcpp.hpp>
-#include "velodyne_msgs/msg/VelodyneScan.hpp"
-#include "sensor_msgs/msg/Imu.hpp"
-#include "sensor_msgs/msg/NavSatFix.hpp"
+#include <velodyne_msgs/msg/velodyne_packet.hpp>
+#include <sensor_msgs/msg/imu.hpp>
+#include <sensor_msgs/msg/nav_sat_fix.hpp>
 
 class TopicNameChanger : public rclcpp::Node {
   struct Params {
