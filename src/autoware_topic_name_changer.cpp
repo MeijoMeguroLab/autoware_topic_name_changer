@@ -37,6 +37,7 @@ TopicNameChanger::TopicNameChanger(const rclcpp::NodeOptions& node_options) : No
 TopicNameChanger::~TopicNameChanger() {}
 
 void TopicNameChanger::velodyne_points_callback(velodyne_msgs::msg::VelodyneScan::SharedPtr msg) {
+  msg->header.frame_id = "velodyne_top";
   velodyne_points_pub_->publish(*msg);
 }
 void TopicNameChanger::imu_callback(sensor_msgs::msg::Imu::SharedPtr msg) {
