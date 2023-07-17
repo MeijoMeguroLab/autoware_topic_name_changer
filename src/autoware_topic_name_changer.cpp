@@ -40,6 +40,7 @@ void TopicNameChanger::velodyne_points_callback(velodyne_msgs::msg::VelodyneScan
   velodyne_points_pub_->publish(*msg);
 }
 void TopicNameChanger::imu_callback(sensor_msgs::msg::Imu::SharedPtr msg) {
+  msg->header.frame_id = "tamagawa/imu_link";
   imu_pub_->publish(*msg);
 }
 void TopicNameChanger::gnss_callback(sensor_msgs::msg::NavSatFix::SharedPtr msg) {
