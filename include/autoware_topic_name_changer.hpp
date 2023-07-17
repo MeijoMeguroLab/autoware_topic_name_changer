@@ -3,6 +3,7 @@
 #include <iostream>
 #include <rclcpp/rclcpp.hpp>
 #include <velodyne_msgs/msg/velodyne_packet.hpp>
+#include <velodyne_msgs/msg/velodyne_scan.hpp>
 #include <sensor_msgs/msg/imu.hpp>
 #include <sensor_msgs/msg/nav_sat_fix.hpp>
 
@@ -18,17 +19,17 @@ public:
 
 private:
   // callback
-  void velodyne_points_callback(const velodyne_msgs::msg::VelodynePacket::SharedPtr msg);
+  void velodyne_points_callback(velodyne_msgs::msg::VelodyneScan::SharedPtr msg);
 
-  void imu_callback(const sensor_msgs::msg::Imu::SharedPtr msg);
+  void imu_callback(sensor_msgs::msg::Imu::SharedPtr msg);
 
-  void gnss_callback(const sensor_msgs::msg::NavSatFix::SharedPtr msg);
+  void gnss_callback(sensor_msgs::msg::NavSatFix::SharedPtr msg);
 
-  rclcpp::Subscription<velodyne_msgs::msg::VelodynePacket>::SharedPtr velodyne_points_sub_;
+  rclcpp::Subscription<velodyne_msgs::msg::VelodyneScan>::SharedPtr velodyne_points_sub_;
   rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr imu_sub_;
   rclcpp::Subscription<sensor_msgs::msg::NavSatFix>::SharedPtr gnss_sub_;
 
-  rclcpp::Publisher<velodyne_msgs::msg::VelodynePacket>::SharedPtr velodyne_points_pub_;
+  rclcpp::Publisher<velodyne_msgs::msg::VelodyneScan>::SharedPtr velodyne_points_pub_;
   rclcpp::Publisher<sensor_msgs::msg::Imu>::SharedPtr imu_pub_;
   rclcpp::Publisher<sensor_msgs::msg::NavSatFix>::SharedPtr gnss_pub_;
 };

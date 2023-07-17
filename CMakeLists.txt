@@ -15,9 +15,6 @@ target_include_directories(autoware_topic_name_changer
   PUBLIC ${PROJECT_SOURCE_DIR}/include
 )
 
-target_link_libraries(autoware_topic_name_changer 
-)
-
 ament_target_dependencies(autoware_topic_name_changer
   rclcpp 
   velodyne_msgs
@@ -26,5 +23,9 @@ ament_target_dependencies(autoware_topic_name_changer
 
 # Install the points_processor executable to the lib/points_processor directory
 install(TARGETS autoware_topic_name_changer DESTINATION lib/${PROJECT_NAME})
+
+
+# Install the launch directory to the share/points_processor directory
+install(DIRECTORY launch DESTINATION share/${PROJECT_NAME}/)
 
 ament_package()
