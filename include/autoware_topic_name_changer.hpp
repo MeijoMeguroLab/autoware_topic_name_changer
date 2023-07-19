@@ -6,11 +6,13 @@
 #include <velodyne_msgs/msg/velodyne_scan.hpp>
 #include <sensor_msgs/msg/imu.hpp>
 #include <sensor_msgs/msg/nav_sat_fix.hpp>
+#include <geometry_msgs/msg/twist_stamped.hpp>
+#include <geometry_msgs/msg/twist_with_covariance_stamped.hpp>
 
 class TopicNameChanger : public rclcpp::Node {
   struct Params {
     // rosbag information
-    std::string lidar_topic_name, imu_topic_name, gnss_topic_name, pub_lidar_topic_name, pub_imu_topic_name, pub_gnss_topic_name;
+    std::string lidar_topic_name, twist_topic_name, imu_topic_name, gnss_topic_name, pub_lidar_topic_name, pub_twist_topic_name, pub_imu_topic_name, pub_gnss_topic_name;
   } params_;
 
 public:
@@ -21,15 +23,19 @@ private:
   // callback
   void velodyne_points_callback(velodyne_msgs::msg::VelodyneScan::SharedPtr msg);
 
+  void twist_callback(geometry_msgs::msg::TwistStamped::SharedPtr msg);
+
   void imu_callback(sensor_msgs::msg::Imu::SharedPtr msg);
 
   void gnss_callback(sensor_msgs::msg::NavSatFix::SharedPtr msg);
 
   rclcpp::Subscription<velodyne_msgs::msg::VelodyneScan>::SharedPtr velodyne_points_sub_;
+  rclcpp::Subscription<geometry_msgs::msg::TwistStamped>::SharedPtr twist_sub_;
   rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr imu_sub_;
   rclcpp::Subscription<sensor_msgs::msg::NavSatFix>::SharedPtr gnss_sub_;
 
   rclcpp::Publisher<velodyne_msgs::msg::VelodyneScan>::SharedPtr velodyne_points_pub_;
+  rclcpp::Publisher<geometry_msgs::msg::TwistWithCovarianceStamped>::SharedPtr twist_pub_;
   rclcpp::Publisher<sensor_msgs::msg::Imu>::SharedPtr imu_pub_;
   rclcpp::Publisher<sensor_msgs::msg::NavSatFix>::SharedPtr gnss_pub_;
 };

@@ -1,10 +1,11 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.22.1)
 project(autoware_topic_name_changer)
 
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(velodyne_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
 
 add_executable(autoware_topic_name_changer 
   src/autoware_topic_name_changer.cpp
@@ -19,6 +20,7 @@ ament_target_dependencies(autoware_topic_name_changer
   rclcpp 
   velodyne_msgs
   sensor_msgs
+  geometry_msgs
 )
 
 # Install the points_processor executable to the lib/points_processor directory
