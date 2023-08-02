@@ -7,6 +7,8 @@ $cd ros2_ws
 $mkdir src
 $cd src
 $git clone git@github.com:MeijoMeguroLab/Y23_autoware_topic_name_changer.git
+$cd ..
+$colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
 ```
 
 
