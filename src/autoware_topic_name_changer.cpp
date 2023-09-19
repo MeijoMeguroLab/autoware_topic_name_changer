@@ -10,7 +10,6 @@ TopicNameChanger::TopicNameChanger(const rclcpp::NodeOptions& node_options) : No
   params_.pub_twist_topic_name = this->declare_parameter<std::string>("pub_twist_topic_name");
   params_.pub_imu_topic_name = this->declare_parameter<std::string>("pub_imu_topic_name");
   params_.pub_gnss_topic_name = this->declare_parameter<std::string>("pub_gnss_topic_name");
-  
 
   std::cout << "lidar_topic_name: " << params_.lidar_topic_name << std::endl;
   std::cout << "twist_topic_name: " << params_.twist_topic_name << std::endl;
@@ -21,7 +20,6 @@ TopicNameChanger::TopicNameChanger(const rclcpp::NodeOptions& node_options) : No
   std::cout << "pub_twist_topic_name: " << params_.pub_twist_topic_name << std::endl;
   std::cout << "pub_imu_topic_name: " << params_.pub_imu_topic_name << std::endl;
   std::cout << "pub_gnss_topic_name: " << params_.pub_gnss_topic_name << std::endl;
-
 
   // sub
   auto qos = rclcpp::SensorDataQoS();
@@ -40,7 +38,7 @@ TopicNameChanger::TopicNameChanger(const rclcpp::NodeOptions& node_options) : No
   velodyne_points_pub_ = this->create_publisher<velodyne_msgs::msg::VelodyneScan>(params_.pub_lidar_topic_name, 10);
   twist_pub_ = this->create_publisher<geometry_msgs::msg::TwistWithCovarianceStamped>(params_.pub_twist_topic_name, 10);
   imu_pub_ = this->create_publisher<sensor_msgs::msg::Imu>(params_.pub_imu_topic_name, 10);
-  gnss_pub_ = this->create_publisher<sensor_msgs::msg::NavSatFix>( params_.pub_gnss_topic_name, 10);
+  gnss_pub_ = this->create_publisher<sensor_msgs::msg::NavSatFix>(params_.pub_gnss_topic_name, 10);
 }
 
 TopicNameChanger::~TopicNameChanger() {}
@@ -50,12 +48,17 @@ void TopicNameChanger::velodyne_points_callback(velodyne_msgs::msg::VelodyneScan
   velodyne_points_pub_->publish(*msg);
 }
 void TopicNameChanger::twist_callback(geometry_msgs::msg::TwistStamped::SharedPtr msg) {
-  geometry_msgs::msg::TwistWithCovarianceStamped pub_msg;
-  pub_msg.header = msg->header;
-  pub_msg.twist.twist = msg->twist;
-
-  pub_msg.header.frame_id = "gnss_link";
-  twist_pub_->publish(pub_msg);
+  geometry_msgs::msg::TwistWithCovarianceStamped twist_pub_msg;
+  twist_pub_msg.header = msg->header;
+  twist_pub_msg.twist.twist = msg->twist;
+  twist_pub_msg.header.frame_id = "base_link";
+  twist_pub_msg.twist.covariance[0 + 0 * 6] = 0.2 * 0.2;
+  twist_pub_msg.twist.covariance[1 + 1 * 6] = 10000.0;
+  twist_pub_msg.twist.covariance[2 + 2 * 6] = 10000.0;
+  twist_pub_msg.twist.covariance[3 + 3 * 6] = 10000.0;
+  twist_pub_msg.twist.covariance[4 + 4 * 6] = 10000.0;
+  twist_pub_msg.twist.covariance[5 + 5 * 6] = 0.1 * 0.1;
+  twist_pub_->publish(twist_pub_msg);
 }
 void TopicNameChanger::imu_callback(sensor_msgs::msg::Imu::SharedPtr msg) {
   msg->header.frame_id = "tamagawa/imu_link";
